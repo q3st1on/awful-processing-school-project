@@ -37,9 +37,15 @@ void stats() {
 }
 
 void basicStats() {
-  text("Targets Missed: "+tm, 500, 80);
-  text("      Targets Hit: "+th, 500, 100);
-  text("          Accuracy: "+round(accuracy(th, tm+th), 2), 500, 120);
+  fill(91);
+  rect(390, 80, 150, 100, 7);
+  fill(#ffffff);
+  textSize(20);
+  text("BASIC STATS", 403, 105);
+  textSize(15);
+  text("Targets Missed: "+tm, 400, 130);
+  text("Targets Hit: "+th, 400, 150);
+  text("Accuracy: %"+round(accuracy(th, tm+th), 2), 400, 170);
 }
 
 //OPTIONS PANEL
@@ -129,35 +135,46 @@ void menumousePressed(){
 }
 
 void overminUp() { 
-  if(mintargetsize <= 300) {
+  if (mintargetsize == maxtargetsize) {
+    overmaxUp();
+  }
+  if(mintargetsize <= 290) {
     mintargetsize = mintargetsize+10;
+  } else if (mintargetsize == 300) {
   } else {
     mintargetsize = 300;
   }
 }
 
 void overminDown() {
- if(mintargetsize >=10) {
+ if(mintargetsize >=20) {
    mintargetsize = mintargetsize-10;
+ } else  if (mintargetsize == 10){
  } else {
    mintargetsize = 10;
  }
 }
 
 void overmaxUp() { 
-  if(maxtargetsize <= 300) {
+  if(maxtargetsize <= 290) {
     maxtargetsize = maxtargetsize+10;
+  } else if (maxtargetsize == 300) {
   } else {
     maxtargetsize = 300;
   }
 }
 
 void overmaxDown() { 
-  if(maxtargetsize >= 10) {
+  if (maxtargetsize == mintargetsize) { 
+    overminDown();
+  }
+  if(maxtargetsize >= 20) {
     maxtargetsize = maxtargetsize-10;
+  } else if (maxtargetsize == 10) {
   } else {
     maxtargetsize = 10;
   }
+  
 }
 
 float area(int x1, int y1, int x2, int y2, int x3, int y3) {
@@ -165,17 +182,6 @@ float area(int x1, int y1, int x2, int y2, int x3, int y3) {
   if(area < 0) {area = -area;}
   return ((area)/2.0); 
 }
-
-Boolean overCircle(float xx, float yy, float ss) {
-  float disX = xx - mouseX;
-  float disY = yy - mouseY;
-  if (sqrt(sq(disX) + sq(disY)) < ss/2 ) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
 
 boolean overRect(int x, int y, int width, int height)  {
   if (mouseX >= x && mouseX <= x+width && 

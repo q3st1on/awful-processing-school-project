@@ -3,13 +3,15 @@ float x,y,s;
 
 //DRAW GAME TO SCREEN
 void drawGame() {
-  if (counter < targets) {
+  if (counter < targets-1) {
     background(0);
     fill(col);
     circle(x, y, s);
     gameExit();
     if( timer.alarm() ){
       newTarget(0);
+      xdif[counter] = 5000; ydif[counter] = 5000;
+      counter = counter+1;
     }
   } else {
     gotoMenu();
@@ -28,7 +30,6 @@ void newTarget(int f) {
   s = random(int(mintargetsize),int(maxtargetsize));
   x = random(0, width - s);
   y = random(0, height - s);  
-  counter = counter+1;
   if (f == 1) {
     th = th + 1;
   } else if (f == 0) {
@@ -43,7 +44,11 @@ void gamemousePressed() {
   } else if( overCircle(x, y, s) ){
     newTarget(1);
     calcDiff(mouseX, mouseY, (int)x, (int)y);
+    counter = counter+1;
   } else {
+    calcDiff(mouseX, mouseY, (int)x, (int)y);
+    mhcol[counter] = 1;
+    counter = counter+1;
     tm = tm +1;
   }
 }
@@ -60,4 +65,14 @@ void gotoMenu() {
     } else {
       tm = tm - 1;
     }
+}
+
+Boolean overCircle(float xx, float yy, float ss) {
+  float disX = xx - mouseX;
+  float disY = yy - mouseY;
+  if (sqrt(sq(disX) + sq(disY)) < ss/2 ) {
+    return true;
+  } else {
+    return false;
+  }
 }

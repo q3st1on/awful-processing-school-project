@@ -4,7 +4,7 @@ final int GAMESCREEN = 0;
 int screenState = MENUSCREEN;
 void setup() {
   size(800, 500);
-  newTarget(2); // Make initial target
+  newTarget(2); // Make initial target41
   menuSetup();
 }
 
